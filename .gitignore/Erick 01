@@ -1,0 +1,85 @@
+name: lista de exercicios - 1
+description: >-
+  Layout do suplemento: 5 caixas de texto e 1 botão. Funcionalidade do
+  suplemento: permitir digitar 5 números, validando se todos são números, e se
+  estiver tudo certo, exibir como resultado a exponenciação ao quadrado de cada
+  número informado, um resultado por linha. Atenção: todas as mensagens de saída
+  (tanto validações quanto resultados finais) devem ser exibidas no Word.
+host: WORD
+api_set: {}
+script:
+  content: >
+    // Força somente números nos inputs
+    //
+    https://www.geeksforgeeks.org/how-to-force-input-field-to-enter-numbers-only-using-javascript/
+    function onlyNumberKey(evt) {
+      // Only ASCII character in that range allowed
+      let ASCIICode = evt.which ? evt.which : evt.keyCode;
+      if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) return false;
+      return true;
+    }
+    /*Função que Realiza os Cálculos*/
+    function buttonCalc() {
+      Word.run(function(context) {
+        let docBody = context.document.body;
+        let number1 = txtn1.value;
+        let number2 = txtn2.value;
+        let number3 = txtn3.value;
+        let number4 = txtn4.value;
+        let number5 = txtn5.value;
+        docBody.clear();
+        if (number1 == "" || number2 == "" || number3 == "" || number4 == "" || number5 == "" ) {
+          docBody.insertParagraph("Não é permitido campos Vazios! Verifique se os campos estão preenchidos corretamente!", "End");
+        } else {
+          let results = [];
+          number1 = parseInt(number1);
+          number2 = parseInt(number2);
+          number3 = parseInt(number3);
+          number4 = parseInt(number4);
+          number5 = parseInt(number5);
+          docBody.insertParagraph(
+            `${number1} ^ 2 = ${Math.pow(number1, 2)}`
+            , "End");
+          docBody.insertParagraph(
+            `${number2} ^ 2 = ${Math.pow(number2, 2)}`
+            , "End");
+          docBody.insertParagraph(
+            `${number3} ^ 2 = ${Math.pow(number3, 2)}`
+            , "End");
+          docBody.insertParagraph(
+            `${number4} ^ 2 = ${Math.pow(number4, 2)}`
+            , "End");
+          docBody.insertParagraph(
+            `${number5} ^ 2 = ${Math.pow(number5, 2)}`
+            , "End");     
+        };
+        return context.sync();
+      });
+    };
+    btnCalc.addEventListener("click", buttonCalc);
+  language: typescript
+template:
+  content: "<h2>Exercicio 1</h2></br>\n<p>Layout do suplemento: 5 caixas de texto e 1 botão. Funcionalidade do suplemento: permitir digitar 5 números,\n\tvalidando\n\tse todos são números, e se estiver tudo certo, exibir como resultado a exponenciação ao quadrado de cada número\n\tinformado, um resultado por linha. Atenção: todas as mensagens de saída (tanto validações quanto resultados finais)\n\tdevem ser exibidas no Word.</p></br>\n\n<input type=\"number\" name=\"textn1\" id=\"txtn1\" placeholder=\"Primeiro Valor\"\n    onkeypress=\"return onlyNumberKey(event)\"\n       maxlength=\"11\" ></p>\n<input type=\"number\" name=\"textn2\" id=\"txtn2\" placeholder=\"Segundo Valor\"\n    onkeypress=\"return onlyNumberKey(event)\"\n       maxlength=\"11\" ></p>\n<input type=\"number\" name=\"textn3\" id=\"txtn3\" placeholder=\"Terceiro Valor\"\n    onkeypress=\"return onlyNumberKey(event)\"\n       maxlength=\"11\" ></p>\n<input type=\"number\" name=\"textn4\" id=\"txtn4\" placeholder=\"Quarto Valor\"\n\t    onkeypress=\"return onlyNumberKey(event)\"\n\t       maxlength=\"11\" ></p>\n<input type=\"number\" name=\"textn5\" id=\"txtn5\" placeholder=\"Quinto Valor\"\n\t\t    onkeypress=\"return onlyNumberKey(event)\"\n\t\t       maxlength=\"11\" >\n<input name=\"calcular\" id=\"btnCalc\" type=\"button\" value=\"Calcular\" ></p>"
+  language: html
+style:
+  content: |-
+    section.samples {
+        margin-top: 20px;
+    }
+    section.samples .ms-Button, section.setup .ms-Button {
+        display: block;
+        margin-bottom: 5px;
+        margin-left: 20px;
+        min-width: 80px;
+    }
+  language: css
+libraries: |
+  https://appsforoffice.microsoft.com/lib/1/hosted/office.js
+  @types/office-js
+  office-ui-fabric-js@1.4.0/dist/css/fabric.min.css
+  office-ui-fabric-js@1.4.0/dist/css/fabric.components.min.css
+  core-js@2.4.1/client/core.min.js
+  @types/core-js
+  jquery@3.1.1
+  @types/jquery@3.3.1
+ to join this conversation on GitHub. 
